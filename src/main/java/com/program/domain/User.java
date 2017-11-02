@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 @Data
 @AllArgsConstructor
@@ -11,14 +12,15 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class User {
 
     @Id
-    private String id;
+    private String email;
 
     private String firtsName;
 
     private String lastName;
 
-    private String email;
+    private String password;
 
     public User() {
     }
+
 }

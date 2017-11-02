@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title th:text="#{label.form.title}">form</title>
+</head>
+<body>
+<form action="/" method="POST" enctype="utf8">
+    <input name="firstName" value=""/>
+    <span id="firstNameError" style="display:none"></span>
+
+    <input name="lastName" value=""/>
+    <span id="lastNameError" style="display:none"></span>
+
+    <input name="email" value=""/>
+    <span id="emailError" style="display:none"></span>
+
+    <input name="password" value="" type="password"/>
+    <span id="passwordError" style="display:none"></span>
+
+    <input name="matchingPassword" value="" type="password"/>
+    <span id="globalError" style="display:none"></span>
+
+    <a href="#" onclick="register()" th:text="#{label.form.submit}">submit</a>
+</form>
+
+
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+    var serverContext = "[[@{/}]]";
+
+    function register() {
+        $(".alert").html("").hide();
+        var formData = $('form').serialize();
+        $.post(serverContext + "/user/registration", formData, function (data) {
+            window.location.href = serverContext + "/successRegister.html";
+        }).fail(function (data) {
+
+        })
+    }
+</script>
+</body>
+</html>

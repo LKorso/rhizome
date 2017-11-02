@@ -35,13 +35,12 @@ public class ITUserService {
     @Test
     public void newUserSaved() {
         // given
-        User newUser = createUser(null);
+        User newUser = createUser();
 
         // when
         User actual = testInstance.save(newUser);
 
         // then
-        assertNotNull(actual.getId());
         assertEquals(actual.getFirtsName(), newUser.getFirtsName());
         assertEquals(actual.getLastName(), newUser.getLastName());
         assertEquals(actual.getEmail(), newUser.getEmail());
@@ -50,15 +49,15 @@ public class ITUserService {
     @Test
     public void userFound() {
         // given
-        String userId = "USERID";
-        User user = createUser(userId);
+        String userEmail = "user@email.com";
+        User user = createUser();
+        user.setEmail(userEmail);
         User savedUser = testInstance.save(user);
 
         // when
-        User actual = testInstance.find(userId);
+        User actual = testInstance.find(userEmail);
 
         // then
-        assertNotNull(actual.getId());
         assertEquals(actual.getFirtsName(), user.getFirtsName());
         assertEquals(actual.getLastName(), user.getLastName());
         assertEquals(actual.getEmail(), user.getEmail());
@@ -69,7 +68,7 @@ public class ITUserService {
     public void userDeleted() {
         // given
         String userId = "USERID";
-        User user = createUser(userId);
+        User user = createUser();
         User savedUser = testInstance.save(user);
 
         // when
@@ -82,8 +81,10 @@ public class ITUserService {
     @Test
     public void allUserWereFound() {
         // given
-        User userOne = createUser(null);
-        User userTwo = createUser(null);
+        User userOne = createUser();
+        userOne.setEmail("emailOne");
+        User userTwo = createUser();
+        userTwo.setEmail("emailTwo");
         testInstance.save(userOne);
         testInstance.save(userTwo);
 
@@ -94,9 +95,8 @@ public class ITUserService {
         assertThat(users.size(), is(2));
     }
 
-    private User createUser(String id) {
-        User user = new User(id, "FirstName", "LastName", "mail@gamil.com");
-        user.setId(id);
+    private User createUser() {
+        User user = new User("FirstName", "LastName", "mail@gamil.com", "password");
         return user;
     }
 
