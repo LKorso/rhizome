@@ -1,4 +1,4 @@
-package com.program.web.security.validation;
+package com.program.web.validation;
 
 public interface RegistrationService {
 

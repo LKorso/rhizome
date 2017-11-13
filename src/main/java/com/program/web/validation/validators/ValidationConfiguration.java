@@ -1,8 +1,7 @@
-package com.program.web.security.validation.validators;
+package com.program.web.validation.validators;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import javax.validation.Validation;

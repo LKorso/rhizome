@@ -1,6 +1,6 @@
-package com.program.web.security.validation.annotations;
+package com.program.web.validation.annotations;
 
-import com.program.web.security.validation.validators.PasswordMatchesValidator;
+import com.program.web.validation.validators.PasswordMatchesValidator;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Retention;

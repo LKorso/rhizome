@@ -1,6 +1,6 @@
-package com.program.web.security.validation.validators;
+package com.program.web.validation.validators;
 
-import com.program.web.security.validation.annotations.EmailValidation;
+import com.program.web.validation.annotations.EmailValidation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

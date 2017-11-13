@@ -1,8 +1,8 @@
 package com.program.web.dto;
 
-import com.program.web.security.validation.annotations.EmailValidation;
-import com.program.web.security.validation.annotations.NotRegistredEmail;
-import com.program.web.security.validation.annotations.PasswordMatches;
+import com.program.web.validation.annotations.EmailValidation;
+import com.program.web.validation.annotations.NotRegistredEmail;
+import com.program.web.validation.annotations.PasswordMatches;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 

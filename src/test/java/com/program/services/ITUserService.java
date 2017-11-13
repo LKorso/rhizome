@@ -96,7 +96,7 @@ public class ITUserService {
     }
 
     private User createUser() {
-        User user = new User("FirstName", "LastName", "mail@gamil.com", "password");
+        User user = new User("mail@gamil.com", "FirstName", "LastName", "password");
         return user;
     }
 

@@ -2,8 +2,9 @@ package com.program.services;
 
 import com.program.domain.User;
 import com.program.repositories.UserRepository;
+import com.program.web.dto.Credentials;
 import com.program.web.dto.UserRegistrationDto;
-import com.program.web.security.validation.RegistrationService;
+import com.program.web.validation.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,15 @@ public class UserService implements RegistrationService {
     @Override
     public boolean isEmailRegistred(String email) {
         return !isNull(userRepository.findOne(email));
+    }
+
+    public Credentials getCredentials(String email) {
+        User user = userRepository.findOne(email);
+        return isNull(user) ? null :
+                new Credentials()
+                        .setEmail(user.getEmail())
+                        .setPassword(user.getPassword())
+                        .setRoles(user.getRoles());
     }
 
     private <T> List<T> toList(final Iterable<T> iterable) {
