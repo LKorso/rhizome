@@ -1,18 +1,19 @@
 package com.program.services;
 
-import com.program.domain.User;
-import com.program.repositories.UserRepository;
-import com.program.web.dto.Credentials;
-import com.program.web.dto.UserRegistrationDto;
-import com.program.web.validation.RegistrationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import static java.util.Objects.isNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static java.util.Objects.isNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.program.domain.User;
+import com.program.repositories.UserRepository;
+import com.program.web.dto.Credentials;
+import com.program.web.dto.UserRegistrationDto;
+import com.program.web.validation.RegistrationService;
 
 @Service
 public class UserService implements RegistrationService {
@@ -47,8 +48,8 @@ public class UserService implements RegistrationService {
     }
 
     @Override
-    public boolean isEmailRegistred(String email) {
-        return !isNull(userRepository.findOne(email));
+    public boolean isEmailRegistered(String email) {
+        return userRepository.exists(email);
     }
 
     public Credentials getCredentials(String email) {

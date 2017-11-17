@@ -12,12 +12,8 @@ import javax.validation.constraints.NotNull;
 @PasswordMatches
 public class UserRegistrationDto {
 
-    @NotNull
-    @NotEmpty
     private String firstName;
 
-    @NotNull
-    @NotEmpty
     private String lastName;
 
     @EmailValidation

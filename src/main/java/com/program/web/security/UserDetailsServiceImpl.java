@@ -2,6 +2,7 @@ package com.program.web.security;
 
 import com.program.services.UserService;
 import com.program.web.dto.Credentials;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (isNull(credentials)) {
             throw new UsernameNotFoundException("User with email: " + email + " not found");
         }
-        User user = new User(
+        return new User(
                 credentials.getEmail(),
                 credentials.getPassword().toLowerCase(),
                 true,
@@ -36,7 +37,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 true,
                 true,
                 getAuthorities(credentials.getRoles()));
-        return user;
     }
 
     private List<GrantedAuthority> getAuthorities(List<String> roles) {
