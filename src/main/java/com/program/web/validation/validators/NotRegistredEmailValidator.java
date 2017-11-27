@@ -20,6 +20,6 @@ public class NotRegistredEmailValidator implements ConstraintValidator<NotRegist
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
-        return registrationService.isEmailRegistered(email);
+        return !registrationService.isEmailRegistered(email);
     }
 }

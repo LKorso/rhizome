@@ -4,7 +4,7 @@ $("document").ready(function () {
 
 function register() {
     $.post("/user", createRegistrationDto()).done(function () {
-        var r = 0;
+        window.location = "../index.html";
     }).fail(function (response) {
         alert(response);
     });

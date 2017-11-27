@@ -16,16 +16,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers(HttpMethod.POST, "/user").permitAll();
+        http.csrf().disable();
         http
                 .authorizeRequests()
-                    .antMatchers("/html/registration.html", "/js/**", "/css/**", "/user/").permitAll()
-                .anyRequest().permitAll()
+                    .antMatchers("/html/registration.html", "/js/**", "/css/**", "/libs/**").permitAll()
+                    .mvcMatchers(HttpMethod.POST, "/user").permitAll()
+                .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/")
                         .passwordParameter("password")
                         .usernameParameter("email")
+                        .loginProcessingUrl("/login")
                     .permitAll()
                 .and()
                     .logout()

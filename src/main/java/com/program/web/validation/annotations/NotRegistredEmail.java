@@ -3,6 +3,7 @@ package com.program.web.validation.annotations;
 import com.program.web.validation.validators.NotRegistredEmailValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -17,5 +18,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface NotRegistredEmail {
 
     String message() default "Email is already registred!";
+
+    Class<?>[] groups() default { };
+
+    Class<? extends Payload>[] payload() default { };
 
 }

@@ -3,6 +3,7 @@ package com.program.web.validation.annotations;
 import com.program.web.validation.validators.PasswordMatchesValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -20,5 +21,9 @@ public @interface PasswordMatches {
     String confirmationField() default "confirmationPassword";
 
     String message() default "Passwords don't match";
+
+    Class<?>[] groups() default { };
+
+    Class<? extends Payload>[] payload() default { };
 
 }
