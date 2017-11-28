@@ -1,6 +1,8 @@
-package com.program.services;
+package com.program.it.sevices;
 
 import com.program.domain.User;
+import com.program.it.configuration.EmbeddedElasticsearchConfiguration;
+import com.program.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +17,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = EmbeddedElasticsearchConfiguration.class)
 public class ITUserService {
 
     @Autowired
@@ -79,7 +81,7 @@ public class ITUserService {
     }
 
     @Test
-    public void allUserWereFound() {
+    public void allUsersWereFound() {
         // given
         User userOne = createUser();
         userOne.setEmail("emailOne");

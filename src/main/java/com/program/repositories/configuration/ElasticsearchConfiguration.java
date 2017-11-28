@@ -38,7 +38,7 @@ public class ElasticsearchConfiguration {
     }
 
     @Bean
-    public ElasticsearchOperations elasticserchTemplate() throws Exception {
+    public ElasticsearchOperations elasticsearchTemplate() throws Exception {
         return new ElasticsearchTemplate(client());
     }
 
