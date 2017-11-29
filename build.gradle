@@ -1,4 +1,4 @@
-group 'com.program'
+group 'com.rhizome'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -15,7 +15,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'program'
+    baseName = 'rhizome'
     version =  '0.1.0'
 }
 
