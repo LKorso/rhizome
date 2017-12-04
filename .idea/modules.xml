@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/program.iml" filepath="$PROJECT_DIR$/.idea/modules/program.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/program_main.iml" filepath="$PROJECT_DIR$/.idea/modules/program_main.iml" group="program" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/program_test.iml" filepath="$PROJECT_DIR$/.idea/modules/program_test.iml" group="program" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rhizome.iml" filepath="$PROJECT_DIR$/.idea/modules/rhizome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rhizome_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rhizome_main.iml" group="rhizome" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rhizome_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rhizome_test.iml" group="rhizome" />
     </modules>
   </component>
 </project>

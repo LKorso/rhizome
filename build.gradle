@@ -21,6 +21,8 @@ jar {
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
+
 }
 
 sourceCompatibility = 1.8
@@ -37,5 +39,10 @@ dependencies {
     testCompile("org.springframework.security:spring-security-test")
     testCompile("net.java.dev.jna:jna")
     testCompile("junit:junit")
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.1')
+    testCompile('org.junit.jupiter:junit-jupiter-engine:5.0.1')
+    testCompile('com.github.sbrannen:spring-test-junit5:1.0.2')
+    testCompile('org.junit.platform:junit-platform-runner:1.0.2')
+
 }
 

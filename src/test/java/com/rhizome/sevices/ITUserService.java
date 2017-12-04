@@ -1,22 +1,26 @@
 package com.rhizome.sevices;
 
-import com.rhizome.domain.User;
 import com.rhizome.configuration.EmbeddedElasticsearchConfiguration;
+import com.rhizome.domain.User;
 import com.rhizome.services.implementation.UserService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
+@RunWith(JUnitPlatform.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = EmbeddedElasticsearchConfiguration.class)
 public class ITUserService {
 
@@ -26,8 +30,8 @@ public class ITUserService {
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
-    @Before
-    public void before() {
+    @BeforeEach
+    void before() {
         elasticsearchTemplate.deleteIndex(User.class);
         elasticsearchTemplate.createIndex(User.class);
         elasticsearchTemplate.putMapping(User.class);
@@ -35,7 +39,7 @@ public class ITUserService {
     }
 
     @Test
-    public void newUserSaved() {
+    void newUserSaved() {
         // given
         User newUser = createUser();
 
@@ -43,13 +47,15 @@ public class ITUserService {
         User actual = testInstance.save(newUser);
 
         // then
-        assertEquals(actual.getFirtsName(), newUser.getFirtsName());
-        assertEquals(actual.getLastName(), newUser.getLastName());
-        assertEquals(actual.getEmail(), newUser.getEmail());
+        assertAll(
+                () -> assertEquals(actual.getFirtsName(), newUser.getFirtsName()),
+                () -> assertEquals(actual.getLastName(), newUser.getLastName()),
+                () -> assertEquals(actual.getEmail(), newUser.getEmail())
+        );
     }
 
     @Test
-    public void userFound() {
+    void userFound() {
         // given
         String userEmail = "user@email.com";
         User user = createUser();
@@ -60,14 +66,15 @@ public class ITUserService {
         User actual = testInstance.find(userEmail);
 
         // then
-        assertEquals(actual.getFirtsName(), user.getFirtsName());
-        assertEquals(actual.getLastName(), user.getLastName());
-        assertEquals(actual.getEmail(), user.getEmail());
-
+        assertAll(
+                () -> assertEquals(actual.getFirtsName(), user.getFirtsName()),
+                () -> assertEquals(actual.getLastName(), user.getLastName()),
+                () -> assertEquals(actual.getEmail(), user.getEmail())
+        );
     }
 
     @Test
-    public void userDeleted() {
+    void userDeleted() {
         // given
         String userId = "USERID";
         User user = createUser();
@@ -81,7 +88,7 @@ public class ITUserService {
     }
 
     @Test
-    public void allUsersWereFound() {
+    void allUsersWereFound() {
         // given
         User userOne = createUser();
         userOne.setEmail("emailOne");
