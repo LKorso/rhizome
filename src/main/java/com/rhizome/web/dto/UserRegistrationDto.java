@@ -1,7 +1,7 @@
 package com.rhizome.web.dto;
 
 import com.rhizome.web.validation.annotations.EmailValidation;
-import com.rhizome.web.validation.annotations.NotRegistredEmail;
+import com.rhizome.web.validation.annotations.UniqueEmail;
 import com.rhizome.web.validation.annotations.PasswordMatches;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,8 +16,8 @@ public class UserRegistrationDto {
 
     private String lastName;
 
+    @UniqueEmail
     @EmailValidation
-    @NotRegistredEmail
     private String email;
 
     @NotNull

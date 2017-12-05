@@ -1,6 +1,6 @@
 package com.rhizome.web.validation.annotations;
 
-import com.rhizome.web.validation.validators.NotRegistredEmailValidator;
+import com.rhizome.web.validation.validators.UniqueEmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -14,10 +14,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
-@Constraint(validatedBy = NotRegistredEmailValidator.class)
-public @interface NotRegistredEmail {
+@Constraint(validatedBy = UniqueEmailValidator.class)
+public @interface UniqueEmail {
 
-    String message() default "Email is already registred!";
+    String message() default "Email is already registered!";
 
     Class<?>[] groups() default { };
 

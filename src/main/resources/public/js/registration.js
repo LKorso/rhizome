@@ -13,9 +13,18 @@ function register() {
     }).fail(function (response) {
         if(response.status === 400) {
             $("#confirmPassword").val('');
-            defineErrors(response.responseJSON).forEach(handleValidation);
+            response.responseJSON.errors.forEach(handleValidation);
+            $(".errorSpan").css("color", "red");
         }
     });
+}
+
+function handleValidation(error) {
+    if (error.fields.length === 1) {
+        applyErrorSpan("." + error.fields[0], error.message);
+    } else {
+        appendSpanForFewFields(error.fields, error.message);
+    }
 }
 
 function createRegistrationDto() {
@@ -26,15 +35,22 @@ function createRegistrationDto() {
     }
 }
 
-function defineErrors(responseJSON) {
-    return _.isUndefined(responseJSON.errors) ? responseJSON : responseJSON.errors;
-}
-
-function handleValidation(errorDto) {
-    $("<span class='errorSpan'>" + errorDto.message + "</span>").appendTo("." + errorDto.field);
-    $(".errorSpan").css("color", "red");
-}
-
 function cleanPage() {
     $(".errorSpan").remove();
+}
+
+function defineFewFieldsSelector(fields) {
+    var selector = "";
+    fields.forEach(function (field) {
+        selector += "." + field + " ";
+    });
+    return selector;
+}
+
+function appendSpanForFewFields(fields, message) {
+    $("div").parent(defineFewFieldsSelector(fields)).prepend("<span class='errorSpan'>" + message + "</span>");
+}
+
+function applyErrorSpan(selector, message) {
+    $("<span class='errorSpan'>" + message + "</span>").appendTo(selector);
 }
