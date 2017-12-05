@@ -14,7 +14,6 @@ function register() {
         if(response.status === 400) {
             $("#confirmPassword").val('');
             response.responseJSON.errors.forEach(handleValidation);
-            $(".errorSpan").css("color", "red");
         }
     });
 }
@@ -25,6 +24,7 @@ function handleValidation(error) {
     } else {
         appendSpanForFewFields(error.fields, error.message);
     }
+    higlightInputs(error.fields);
 }
 
 function createRegistrationDto() {
@@ -36,21 +36,28 @@ function createRegistrationDto() {
 }
 
 function cleanPage() {
-    $(".errorSpan").remove();
+    $(".error-message-span").remove();
+    $("input").removeClass("wrong-input");
 }
 
 function defineFewFieldsSelector(fields) {
-    var selector = "";
+    var selector = ".fewFieldsArea:has(";
     fields.forEach(function (field) {
-        selector += "." + field + " ";
+        selector += "." + field + ", ";
     });
-    return selector;
+    return selector.substr(0, selector.length - 2) + ")";
 }
 
 function appendSpanForFewFields(fields, message) {
-    $("div").parent(defineFewFieldsSelector(fields)).prepend("<span class='errorSpan'>" + message + "</span>");
+    $(defineFewFieldsSelector(fields)).append("<span class='error-message-span'>" + message + "</span>");
 }
 
 function applyErrorSpan(selector, message) {
-    $("<span class='errorSpan'>" + message + "</span>").appendTo(selector);
+    $("<span class='error-message-span'>" + message + "</span>").appendTo(selector);
+}
+
+function higlightInputs(fields) {
+    fields.forEach(function (field) {
+        $("." + field).children("input").addClass("wrong-input");
+    });
 }

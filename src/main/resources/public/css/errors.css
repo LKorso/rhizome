@@ -1,0 +1,8 @@
+.wrong-input {
+    border: 2px solid red;
+    border-radius: 7px;
+}
+
+.error-message-span {
+    color: red;
+}
