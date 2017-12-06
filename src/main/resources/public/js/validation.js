@@ -13,7 +13,7 @@ function handleValidation(error) {
     } else {
         appendSpanForFewFields(error.fields, error.message);
     }
-    higlightInputs(error.fields);
+    highlightInputs(error.fields);
 }
 
 function applyErrorSpan(selector, message) {
@@ -24,7 +24,7 @@ function appendSpanForFewFields(fields, message) {
     $(defineFewFieldsSelector(fields)).append("<span class='error-message-span'>" + message + "</span>");
 }
 
-function higlightInputs(fields) {
+function highlightInputs(fields) {
     fields.forEach(function (field) {
         $("." + field).children("input").addClass("wrong-input");
     });

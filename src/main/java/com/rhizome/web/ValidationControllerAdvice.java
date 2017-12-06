@@ -57,7 +57,7 @@ public class ValidationControllerAdvice {
     private List<String> defineFields(ObjectError error) {
         Object[] arguments = error.getArguments();
         return Arrays.asList(arguments)
-                .subList(1, arguments.length)
+                .subList(1, arguments.length) // TODO define how to exclude this logic
                 .stream()
                 .map(argument -> ((MessageSourceResolvable) argument).getCodes())
                 .flatMap(Arrays::stream)

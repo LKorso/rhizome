@@ -1,10 +1,11 @@
 package com.rhizome.web;
 
-import com.rhizome.web.dto.Credentials;
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import com.rhizome.web.dto.Credentials;
 
 @RestController
 public class AutorizationController {
