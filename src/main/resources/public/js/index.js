@@ -1,17 +1,25 @@
 $("document").ready(function () {
     $("#registration").click(showRegistrationWindow);
-    $("#login").click(login);
+    $("#login").click(onClickLogin);
 });
 
 function showRegistrationWindow() {
     window.location = "../html/registration.html";
 }
 
+function onClickLogin() {
+    cleanValidation();
+    login();
+}
+
 function login() {
     $.post("/login", createLoginDto()).done(function () {
         window.location = "../html/userProfile.html";
     }).fail(function (response) {
-        alert(response);
+        if (response.status === 400) {
+            $("#password").val('');
+            showErrors(response.responseJSON.errors);
+        }
     });
 }
 

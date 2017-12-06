@@ -1,5 +1,6 @@
 package com.rhizome.web.dto;
 
+import com.rhizome.web.validation.annotations.EmailValidation;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -11,8 +12,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class Credentials {
 
-    @NotNull
-    @NotEmpty
+    @EmailValidation
     private String email;
 
     @NotNull

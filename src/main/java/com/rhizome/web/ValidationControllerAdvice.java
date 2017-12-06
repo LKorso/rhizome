@@ -1,26 +1,24 @@
 package com.rhizome.web;
 
-import static java.util.Collections.singletonList;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.rhizome.web.dto.ErrorDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.rhizome.web.dto.ErrorDto;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import static java.util.Collections.singletonList;
 
 @RestControllerAdvice
 public class ValidationControllerAdvice {
@@ -34,6 +32,14 @@ public class ValidationControllerAdvice {
                         .map(this::createErrorDto)
                         .collect(Collectors.toList())
         );
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public Errors handleUserNotFound() {
+        return new Errors(singletonList(
+                new ErrorDto(Arrays.asList("email", "password"), "Wrong email or password")
+        ));
     }
 
     private ErrorDto createErrorDto(ObjectError error) {
