@@ -13,7 +13,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
-@Target({TYPE, FIELD, ANNOTATION_TYPE})
+@Target({FIELD, ANNOTATION_TYPE})
 @Constraint(validatedBy = UniqueEmailValidator.class)
 public @interface UniqueEmail {
 

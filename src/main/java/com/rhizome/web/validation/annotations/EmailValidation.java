@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @NotNull
 @NotEmpty
 @Retention(RUNTIME)
-@Target({TYPE, FIELD, ANNOTATION_TYPE})
+@Target({FIELD, ANNOTATION_TYPE})
 @Constraint(validatedBy = EmailValidator.class)
 public @interface EmailValidation {
 
