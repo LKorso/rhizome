@@ -13,14 +13,16 @@ function onClickLogin() {
 }
 
 function login() {
-    $.post("/login", createLoginDto()).done(function () {
-        window.location = "../html/userProfile.html";
-    }).fail(function (response) {
-        if (response.status === 400) {
-            $("#password").val('');
-            showErrors(response.responseJSON.errors);
-        }
-    });
+    $.post("/login", createLoginDto())
+        .done(function () {
+            window.location = "../html/userProfile.html";
+        })
+        .fail(function (response) {
+            if (response.status === 401) {
+                $("#password").val('');
+                showErrors(response.responseJSON.errors);
+            }
+        });
 }
 
 function createLoginDto() {

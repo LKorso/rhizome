@@ -8,5 +8,9 @@
   ],
   "email-not-unique": [
     "email"
+  ],
+  "not-authenticated" : [
+    "email",
+    "password"
   ]
 }
