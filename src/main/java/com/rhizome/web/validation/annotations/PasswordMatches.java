@@ -20,7 +20,7 @@ public @interface PasswordMatches {
 
     String confirmationField() default "confirmationPassword";
 
-    String message() default "Passwords don't match";
+    String message() default "passwords-do-not-match";
 
     Class<?>[] groups() default { };
 
