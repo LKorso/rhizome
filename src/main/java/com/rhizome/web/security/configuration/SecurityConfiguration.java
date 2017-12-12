@@ -1,4 +1,4 @@
-package com.rhizome.web.security;
+package com.rhizome.web.security.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;

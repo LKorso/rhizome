@@ -1,4 +1,4 @@
-package com.rhizome.web;
+package com.rhizome.web.validation;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,17 +1,18 @@
 package com.rhizome.services.implementation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rhizome.services.api.ErrorCombiner;
-import com.rhizome.services.api.dto.ErrorDto;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rhizome.services.api.ErrorCombiner;
+import com.rhizome.services.api.dto.ErrorDto;
 
 @Component
 public class FilePropertyErrorCombiner implements ErrorCombiner {

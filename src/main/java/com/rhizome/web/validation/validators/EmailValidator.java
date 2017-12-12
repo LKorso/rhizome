@@ -1,11 +1,9 @@
 package com.rhizome.web.validation.validators;
 
-import com.rhizome.web.validation.annotations.EmailValidation;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import com.rhizome.web.validation.annotations.EmailValidation;
 
 public class EmailValidator implements ConstraintValidator<EmailValidation, String> {
 
@@ -18,7 +16,6 @@ public class EmailValidator implements ConstraintValidator<EmailValidation, Stri
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
-        Matcher matcher = Pattern.compile(EMAIL_PATTERN).matcher(email);
-        return matcher.matches();
+        return email.matches(EMAIL_PATTERN);
     }
 }

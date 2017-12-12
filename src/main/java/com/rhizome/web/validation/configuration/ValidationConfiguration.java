@@ -1,4 +1,4 @@
-package com.rhizome.web.validation.validators;
+package com.rhizome.web.validation.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

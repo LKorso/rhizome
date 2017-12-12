@@ -1,12 +1,13 @@
 package com.rhizome.web.validation.validators;
 
-import com.rhizome.web.validation.annotations.PasswordMatches;
+import static java.util.Objects.isNull;
+
+import java.lang.reflect.Field;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.lang.reflect.Field;
 
-import static java.util.Objects.isNull;
+import com.rhizome.web.validation.annotations.PasswordMatches;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 
@@ -21,7 +22,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
         String confirmationField = annotation.confirmationField();
         Object first = getFieldValue(object, passwordField);
         Object second = getFieldValue(object, confirmationField);
-        return (!isNull(first) && !isNull(second)) && first.equals(second);
+        return !isNull(first) && first.equals(second);
     }
 
     private Object getFieldValue(Object instance, String fieldName){
