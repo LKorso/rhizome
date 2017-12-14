@@ -33,6 +33,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
+    compile("org.webjars:jquery:3.2.1")
+    compile("org.webjars:bootstrap:4.0.0-beta.2")
+    compile("org.webjars:webjars-locator")
+
     compileOnly("org.projectlombok:lombok")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
