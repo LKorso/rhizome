@@ -30,8 +30,8 @@ sourceCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+    compile("org.springframework.security.oauth:spring-security-oauth2")
 
     compile("org.webjars:jquery:3.2.1")
     compile("org.webjars:bootstrap:4.0.0-beta.2")
