@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.rhizome.services.api.dto.ErrorsData;
 
-public interface ErrorCombiner {
+public interface ErrorDataPreparator {
 
     ErrorsData combine(String errorCode);
 

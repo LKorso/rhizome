@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.rhizome.services.api.ErrorCombiner;
+import com.rhizome.services.api.ErrorDataPreparator;
 import com.rhizome.services.api.dto.ErrorsData;
 
 @RestControllerAdvice
 public class ValidationControllerAdvice {
 
     @Autowired
-    private ErrorCombiner errorCombiner;
+    private ErrorDataPreparator errorDataPreparator;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     public ErrorsData handleValidation(BindException exception) {
-        return errorCombiner.combine(
+        return errorDataPreparator.combine(
                 exception.getAllErrors()
                         .stream()
                         .map(DefaultMessageSourceResolvable::getDefaultMessage)

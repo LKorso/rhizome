@@ -1,7 +1,9 @@
 package com.rhizome.web.security;
 
-import com.rhizome.services.implementation.UserService;
-import com.rhizome.web.dto.Credentials;
+import static java.util.Objects.isNull;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,10 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.isNull;
+import com.rhizome.services.implementation.UserService;
+import com.rhizome.web.dto.Credentials;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         Credentials credentials = userService.getCredentials(email);
         if (isNull(credentials)) {
             throw new UsernameNotFoundException("User with email: " + email + " not found");

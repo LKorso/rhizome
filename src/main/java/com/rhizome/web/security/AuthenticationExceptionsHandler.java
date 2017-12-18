@@ -11,7 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import com.rhizome.services.api.ErrorCombiner;
+import com.rhizome.services.api.ErrorDataPreparator;
 
 @Component
 public class AuthenticationExceptionsHandler implements AuthenticationFailureHandler {
@@ -20,19 +20,18 @@ public class AuthenticationExceptionsHandler implements AuthenticationFailureHan
     private static final String AUTHENTICATION_ERROR_CODE = "not-authenticated";
 
     @Autowired
-    private ErrorCombiner errorCombiner;
+    private ErrorDataPreparator errorDataPreparator;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
-        // TODO add appropriate logging
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(JSON_TYPE);
         response.getOutputStream().println(getJsonErrors());
     }
 
     private String getJsonErrors() {
-        return errorCombiner.combineToJson(AUTHENTICATION_ERROR_CODE);
+        return errorDataPreparator.combineToJson(AUTHENTICATION_ERROR_CODE);
     }
 
 }

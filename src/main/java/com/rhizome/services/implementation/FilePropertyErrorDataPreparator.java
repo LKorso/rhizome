@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rhizome.services.api.ErrorCombiner;
+import com.rhizome.services.api.ErrorDataPreparator;
 import com.rhizome.services.api.dto.ErrorsData;
 
 @Component
-public class FilePropertyErrorCombiner implements ErrorCombiner {
+public class FilePropertyErrorDataPreparator implements ErrorDataPreparator {
 
     private final String ERROR_FIELDS_PATH = "/errors/validation-errors-fields.json";
 
@@ -49,7 +49,7 @@ public class FilePropertyErrorCombiner implements ErrorCombiner {
         try {
             return jsonMapper.writeValueAsString(combine(errorCode));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
@@ -58,7 +58,7 @@ public class FilePropertyErrorCombiner implements ErrorCombiner {
         try {
             errorsFields = jsonMapper.readValue(getClass().getResourceAsStream(ERROR_FIELDS_PATH), HashMap.class);
         } catch (IOException e) {
-            throw new RuntimeException("File " + ERROR_FIELDS_PATH + " doesn't exist");
+            throw new IllegalStateException("File " + ERROR_FIELDS_PATH + " doesn't exist");
         }
     }
 
