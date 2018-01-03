@@ -22,7 +22,6 @@ jar {
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-
 }
 
 sourceCompatibility = 1.8
@@ -32,6 +31,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-data-elasticsearch")
     compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("org.springframework.security:spring-security-jwt")
 
     compile("org.webjars:jquery:3.2.1")
     compile("org.webjars:bootstrap:4.0.0-beta.2")
@@ -47,6 +47,4 @@ dependencies {
     testCompile('org.junit.jupiter:junit-jupiter-engine:5.0.1')
     testCompile('com.github.sbrannen:spring-test-junit5:1.0.2')
     testCompile('org.junit.platform:junit-platform-runner:1.0.2')
-
 }
-

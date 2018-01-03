@@ -13,21 +13,50 @@ function onClickLogin() {
 }
 
 function login() {
-    $.post("/login", createLoginDto())
-        .done(function () {
-            window.location = "../html/userProfile.html";
-        })
-        .fail(function (response) {
-            if (response.status === 401) {
-                $("#password").val('');
-                showErrors(response.responseJSON.errors);
-            }
-        });
+    $.ajax({
+        url: '/oauth/token',
+        type: 'POST',
+        data: createLoginDto(),
+        headers: createLoginHeader(),
+        dataType: 'json',
+        success: toUserProfile,
+        error: handleLogInErrors
+    });
+    // $.post("/login", createLoginDto())
+    //     .done(function (data, status, xhr) {
+    //         console.log(xhr.getAllResponseHeaders());
+    //         window.location = "../html/userProfile.html";
+    //     })
+    //     .fail(function (response) {
+    //         if (response.status === 401) {
+    //             $("#password").val('');
+    //             showErrors(response.responseJSON.errors);
+    //         }
+    //     });
 }
 
 function createLoginDto() {
     return {
-        "email"     : $("#email").val(),
-        "password"  : $("#password").val()
+        "grant_type": 'password',
+        "username": $("#email").val(),
+        "password": $("#password").val()
+    }
+}
+
+function createLoginHeader() {
+    return {
+        "Authorization": 'Basic ' + btoa('trusted-app:secret'),
+        "Content-Type": 'application/x-www-form-urlencoded'
+    }
+}
+
+function toUserProfile(data) {
+    window.location = "../html/userProfile.html";
+}
+
+function handleLogInErrors(response) {
+    if (response.status === 401) {
+        $("#password").val('');
+        showErrors(response.responseJSON.errors);
     }
 }
