@@ -9,7 +9,7 @@ function onClick() {
 
 function register() {
     $.post("/user", createRegistrationDto()).done(function () {
-        window.location = "../index.html";
+        window.location = "../";
     }).fail(function (response) {
         if(response.status === 400) {
             $("#confirmPassword").val('');

@@ -45,7 +45,7 @@ function createLoginDto() {
 
 function createLoginHeader() {
     return {
-        "Authorization": 'Basic ' + btoa('trusted-app:secret'),
+        "Authorization": 'Basic ' + btoa('client-app:secret'),
         "Content-Type": 'application/x-www-form-urlencoded'
     }
 }
@@ -55,7 +55,7 @@ function toUserProfile(data) {
 }
 
 function handleLogInErrors(response) {
-    if (response.status === 401) {
+    if (response.status === 401 && response.responseJSON != undefined) {
         $("#password").val('');
         showErrors(response.responseJSON.errors);
     }

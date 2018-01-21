@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Document(indexName = "oauthApprovals", type = "oauthApprovals", shards = 1, replicas = 0)
+@Document(indexName = "oauth_approvals", type = "oauthApprovals", shards = 1, replicas = 0)
 public class OauthApprovals {
 
     @Id

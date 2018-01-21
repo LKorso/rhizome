@@ -28,7 +28,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/html/registration.html", "/js/**", "/css/**", "/webjars/**").permitAll()
+                    .antMatchers(
+                            "/",
+                            "/html/registration.html",
+                            "/js/**",
+                            "/css/**",
+                            "/webjars/**")
+                    .permitAll()
                 .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

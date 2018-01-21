@@ -8,8 +8,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.rhizome.domain.converters.GrantedAuthorityConverter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +20,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Document(indexName = "oauthClientDetails", type = "oauthClientDetails", shards = 1, replicas = 0)
+@Document(indexName = "oauth_client_details", type = "oauthClientDetails", shards = 1, replicas = 0)
 public class OauthClientDetails implements ClientDetails {
 
     @Id
@@ -33,7 +36,8 @@ public class OauthClientDetails implements ClientDetails {
 
     private Set<String> registeredRedirectUri;
 
-    private Collection<String> authorities;
+    @JsonDeserialize(converter = GrantedAuthorityConverter.class)
+    private Collection<GrantedAuthority> authorities;
 
     private Integer accessTokenValiditySeconds;
 
