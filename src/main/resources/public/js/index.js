@@ -22,17 +22,6 @@ function login() {
         success: toUserProfile,
         error: handleLogInErrors
     });
-    // $.post("/login", createLoginDto())
-    //     .done(function (data, status, xhr) {
-    //         console.log(xhr.getAllResponseHeaders());
-    //         window.location = "../html/userProfile.html";
-    //     })
-    //     .fail(function (response) {
-    //         if (response.status === 401) {
-    //             $("#password").val('');
-    //             showErrors(response.responseJSON.errors);
-    //         }
-    //     });
 }
 
 function createLoginDto() {
@@ -50,8 +39,15 @@ function createLoginHeader() {
     }
 }
 
-function toUserProfile(data) {
-    window.location = "../html/userProfile.html";
+function toUserProfile(response) {
+    $.ajax({
+        url: '/user',
+        type: 'GET',
+        headers: {"Authorization": 'Bearer ' + response.access_token},
+        success: function (data) {
+
+        }
+    });
 }
 
 function handleLogInErrors(response) {
