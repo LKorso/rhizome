@@ -38,7 +38,6 @@ dependencies {
     compile("org.webjars:jquery:3.2.1")
     compile("org.webjars:bootstrap:4.0.0-beta.2")
     compile("org.webjars:webjars-locator")
-    compile("org.webjars:jquery-cookie:1.4.1-1")
 
     compileOnly("org.projectlombok:lombok")
 

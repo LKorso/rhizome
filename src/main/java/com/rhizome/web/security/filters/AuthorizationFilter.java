@@ -13,19 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
-public class CookieToHeaderFilter extends OncePerRequestFilter {
-
-    private static final String ACCESS_TOKEN_KEY = "access_token";
-    private static final String AUTHORIZATION_KEY = "Authorization";
+public class AuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String accessToken = getTokenValue(cookies, ACCESS_TOKEN_KEY);
+        String accessToken = getTokenValue(request.getCookies(), "access_token");
         Map<String, String> additionalHeaders = new HashMap<>();
         if (accessToken != null) {
-            additionalHeaders.put(AUTHORIZATION_KEY, "Bearer " + accessToken);
+            additionalHeaders.put("Authorization", "Bearer " + accessToken);
         }
         filterChain.doFilter(new CustomHeadersRequest(request, additionalHeaders), response);
     }

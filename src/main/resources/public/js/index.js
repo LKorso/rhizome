@@ -39,17 +39,8 @@ function createLoginHeader() {
     }
 }
 
-function toUserProfile(response) {
-    $.cookie("access_token", response.access_token);
+function toUserProfile() {
     window.location = "../html/userProfile.html";
-    // $.ajax({
-    //     url: '/user',
-    //     type: 'GET',
-    //     headers: {"Authorization": 'Bearer ' + response.access_token},
-    //     success: function (response) {
-    //         $("div.container-fluid").replaceWith(response);
-    //     }
-    // });
 }
 
 function handleLogInErrors(response) {
