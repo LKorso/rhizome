@@ -1,14 +1,13 @@
 package com.rhizome.web;
 
-import java.io.IOException;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
 
-import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
+
 import javax.validation.Valid;
 
-import org.jboss.netty.handler.codec.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +30,10 @@ public class UserController {
     }
 
     @GetMapping
-    public void userProfile(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/html/userProfile.html");
+    public ResponseEntity userProfile(Principal principal) {
+        return userService.find(principal.getName())
+                .map(v -> new ResponseEntity(v, OK))
+                .orElse(new ResponseEntity(NOT_FOUND));
     }
 
 }

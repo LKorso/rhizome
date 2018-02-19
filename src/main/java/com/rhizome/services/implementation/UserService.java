@@ -3,6 +3,7 @@ package com.rhizome.services.implementation;
 import static java.util.Objects.isNull;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.rhizome.domain.User;
 import com.rhizome.repositories.UserRepository;
+import com.rhizome.services.api.dto.UserData;
 import com.rhizome.web.dto.Credentials;
 import com.rhizome.web.dto.UserRegistrationDto;
 import com.rhizome.services.api.RegistrationService;
@@ -25,8 +27,16 @@ public class UserService implements RegistrationService {
         return userRepository.save(user);
     }
 
-    public User find(String id) {
-        return userRepository.findOne(id);
+    public Optional<UserData> find(String id) {
+        User user = userRepository.findOne(id);
+        if (user == null) {
+            return Optional.empty();
+        } else {
+            UserData userData = new UserData();
+            userData.setFirstName(user.getFirstName());
+            userData.setLastName(user.getFirstName());
+            return Optional.of(userData);
+        }
     }
 
     public List<User> findAll() {
@@ -39,7 +49,7 @@ public class UserService implements RegistrationService {
 
     public boolean registerNewUser(UserRegistrationDto userDto) {
         User newUser = new User();
-        newUser.setFirtsName(userDto.getFirstName());
+        newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
         newUser.setEmail(userDto.getEmail());
         newUser.setPassword(userDto.getPassword());

@@ -16,7 +16,7 @@ public class User {
     @Id
     private String email;
 
-    private String firtsName;
+    private String firstName;
 
     private String lastName;
 
@@ -27,9 +27,9 @@ public class User {
     public User() {
     }
 
-    public User(String email, String firtsName, String lastName, String password) {
+    public User(String email, String firstName, String lastName, String password) {
         this.email = email;
-        this.firtsName = firtsName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
     }
