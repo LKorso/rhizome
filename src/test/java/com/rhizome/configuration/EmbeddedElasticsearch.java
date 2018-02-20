@@ -10,7 +10,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.node.Node;
 
-public class EmbeddedElasticsearch implements AutoCloseable{
+public class EmbeddedElasticsearch implements AutoCloseable {
 
     private static final String DEFAULT_FILE_STORAGE = "target/elasticsearch";
 
@@ -38,14 +38,14 @@ public class EmbeddedElasticsearch implements AutoCloseable{
     @Override
     public void close() throws Exception {
         node.close();
-        deleteFileStaroge();
+        deleteFileStorage();
     }
 
-    public Client getClient() {
+    Client getClient() {
         return node.client();
     }
 
-    private void deleteFileStaroge() {
+    private void deleteFileStorage() {
         try {
             FileUtils.deleteDirectory(new File(fileStorage));
         } catch (IOException e) {

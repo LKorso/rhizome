@@ -18,17 +18,26 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String accessToken = getTokenValue(request.getCookies(), "access_token");
+        Map<String, String> additionalHeaders = prepareAdditionalHeaders(request.getCookies());
+        if (additionalHeaders.isEmpty()) {
+            filterChain.doFilter(request, response);
+        } else {
+            filterChain.doFilter(new CustomHeadersRequest(request, additionalHeaders), response);
+        }
+    }
+
+    private Map<String, String> prepareAdditionalHeaders(Cookie[] cookies) {
+        String accessToken = getAccessToken(cookies);
         Map<String, String> additionalHeaders = new HashMap<>();
         if (accessToken != null) {
             additionalHeaders.put("Authorization", "Bearer " + accessToken);
         }
-        filterChain.doFilter(new CustomHeadersRequest(request, additionalHeaders), response);
+        return additionalHeaders;
     }
 
-    private String getTokenValue(Cookie[] cookies, String cookieName) {
+    private String getAccessToken(Cookie[] cookies) {
         return Arrays.stream(cookies)
-                .filter(cookie -> cookieName.equals(cookie.getName()))
+                .filter(cookie -> "access_token".equals(cookie.getName()))
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);

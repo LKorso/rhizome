@@ -2,6 +2,7 @@ package com.rhizome.sevices;
 
 import com.rhizome.configuration.EmbeddedElasticsearchConfiguration;
 import com.rhizome.domain.User;
+import com.rhizome.services.api.dto.UserData;
 import com.rhizome.services.implementation.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ public class ITUserService {
 
         // then
         assertAll(
-                () -> assertEquals(actual.getFirtsName(), newUser.getFirtsName()),
+                () -> assertEquals(actual.getFirstName(), newUser.getFirstName()),
                 () -> assertEquals(actual.getLastName(), newUser.getLastName()),
                 () -> assertEquals(actual.getEmail(), newUser.getEmail())
         );
@@ -60,16 +61,14 @@ public class ITUserService {
         String userEmail = "user@email.com";
         User user = createUser();
         user.setEmail(userEmail);
-        User savedUser = testInstance.save(user);
 
         // when
-        User actual = testInstance.find(userEmail);
+        UserData actual = testInstance.find(userEmail).get();
 
         // then
         assertAll(
-                () -> assertEquals(actual.getFirtsName(), user.getFirtsName()),
-                () -> assertEquals(actual.getLastName(), user.getLastName()),
-                () -> assertEquals(actual.getEmail(), user.getEmail())
+                () -> assertEquals(actual.getFirstName(), user.getFirstName()),
+                () -> assertEquals(actual.getLastName(), user.getLastName())
         );
     }
 
