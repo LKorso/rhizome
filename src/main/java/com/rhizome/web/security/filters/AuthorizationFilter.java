@@ -18,12 +18,14 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        Map<String, String> additionalHeaders = prepareAdditionalHeaders(request.getCookies());
-        if (additionalHeaders.isEmpty()) {
-            filterChain.doFilter(request, response);
-        } else {
-            filterChain.doFilter(new CustomHeadersRequest(request, additionalHeaders), response);
+        if (request.getCookies() != null) {
+            Map<String, String> additionalHeaders = prepareAdditionalHeaders(request.getCookies());
+            if (!additionalHeaders.isEmpty()) {
+                filterChain.doFilter(new CustomHeadersRequest(request, additionalHeaders), response);
+                return;
+            }
         }
+        filterChain.doFilter(request, response);
     }
 
     private Map<String, String> prepareAdditionalHeaders(Cookie[] cookies) {

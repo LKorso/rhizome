@@ -8,5 +8,15 @@ $("document").ready(function () {
 });
 
 function initialize(response) {
-    response;
+    $("#f-name").text(valueOrDefault(response.firstName, 'FirstName is not set'));
+    $("#l-name").text(valueOrDefault(response.lastName, 'LastName is not set'));
+    $("#change-profile").click(openChangeProfilePage);
+}
+
+function valueOrDefault(value, defaultValue) {
+    return value === null || value === undefined ? defaultValue : value;
+}
+
+function openChangeProfilePage() {
+    window.location = "../html/userProfile-changeData.html";
 }

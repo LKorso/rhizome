@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.rhizome.domain.User;
 import com.rhizome.repositories.UserRepository;
+import com.rhizome.repositories.UserUpdateRepository;
 import com.rhizome.services.api.dto.UserData;
+import com.rhizome.services.mappers.UserDataToUserMapper;
 import com.rhizome.web.dto.Credentials;
 import com.rhizome.web.dto.UserRegistrationDto;
 import com.rhizome.services.api.RegistrationService;
@@ -21,7 +23,11 @@ import com.rhizome.services.api.RegistrationService;
 public class UserService implements RegistrationService {
 
     @Autowired
+    private UserUpdateRepository userUpdateRepository;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserDataToUserMapper userDataToUserMapper;
 
     public User save(User user) {
         return userRepository.save(user);
@@ -32,10 +38,7 @@ public class UserService implements RegistrationService {
         if (user == null) {
             return Optional.empty();
         } else {
-            UserData userData = new UserData();
-            userData.setFirstName(user.getFirstName());
-            userData.setLastName(user.getFirstName());
-            return Optional.of(userData);
+            return Optional.of(userDataToUserMapper.toUserData(user));
         }
     }
 
@@ -71,8 +74,15 @@ public class UserService implements RegistrationService {
                         .setRoles(user.getRoles());
     }
 
+    public void update(String email, UserData userData) {
+        User instanceWithUpdatedFields = userDataToUserMapper.toUser(userData);
+        instanceWithUpdatedFields.setEmail(email);
+        userUpdateRepository.update(instanceWithUpdatedFields);
+    }
+
     private <T> List<T> toList(final Iterable<T> iterable) {
         return StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
     }
+
 }
