@@ -12,18 +12,15 @@ import org.springframework.stereotype.Service;
 
 import com.rhizome.domain.User;
 import com.rhizome.repositories.UserRepository;
-import com.rhizome.repositories.UserUpdateRepository;
+import com.rhizome.services.api.RegistrationService;
 import com.rhizome.services.api.dto.UserData;
 import com.rhizome.services.mappers.UserDataToUserMapper;
 import com.rhizome.web.dto.Credentials;
 import com.rhizome.web.dto.UserRegistrationDto;
-import com.rhizome.services.api.RegistrationService;
 
 @Service
 public class UserService implements RegistrationService {
 
-    @Autowired
-    private UserUpdateRepository userUpdateRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -75,9 +72,10 @@ public class UserService implements RegistrationService {
     }
 
     public void update(String email, UserData userData) {
-        User instanceWithUpdatedFields = userDataToUserMapper.toUser(userData);
-        instanceWithUpdatedFields.setEmail(email);
-        userUpdateRepository.update(instanceWithUpdatedFields);
+        User user = userRepository.findOne(email);
+        user.setFirstName(userData.getFirstName());
+        user.setLastName(userData.getLastName());
+        userRepository.save(user);
     }
 
     private <T> List<T> toList(final Iterable<T> iterable) {
