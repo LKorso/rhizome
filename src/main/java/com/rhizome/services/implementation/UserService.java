@@ -1,15 +1,5 @@
 package com.rhizome.services.implementation;
 
-import static java.util.Objects.isNull;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.rhizome.domain.User;
 import com.rhizome.repositories.UserRepository;
 import com.rhizome.services.api.RegistrationService;
@@ -17,6 +7,15 @@ import com.rhizome.services.api.dto.UserData;
 import com.rhizome.services.mappers.UserDataToUserMapper;
 import com.rhizome.web.dto.Credentials;
 import com.rhizome.web.dto.UserRegistrationDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static java.util.Objects.isNull;
 
 @Service
 public class UserService implements RegistrationService {
@@ -30,7 +29,7 @@ public class UserService implements RegistrationService {
         return userRepository.save(user);
     }
 
-    public Optional<UserData> find(String id) {
+    public Optional<UserData> find(Integer id) {
         User user = userRepository.findOne(id);
         if (user == null) {
             return Optional.empty();
@@ -59,11 +58,15 @@ public class UserService implements RegistrationService {
 
     @Override
     public boolean isEmailRegistered(String email) {
-        return userRepository.exists(email);
+        return userRepository.existsByEmail(email);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
     public Credentials getCredentials(String email) {
-        User user = userRepository.findOne(email);
+        User user = userRepository.findUserByEmail(email);
         return isNull(user) ? null :
                 new Credentials()
                         .setEmail(user.getEmail())
@@ -72,7 +75,7 @@ public class UserService implements RegistrationService {
     }
 
     public void update(String email, UserData userData) {
-        User user = userRepository.findOne(email);
+        User user = userRepository.findUserByEmail(email);
         user.setFirstName(userData.getFirstName());
         user.setLastName(userData.getLastName());
         userRepository.save(user);
@@ -82,5 +85,4 @@ public class UserService implements RegistrationService {
         return StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
     }
-
 }

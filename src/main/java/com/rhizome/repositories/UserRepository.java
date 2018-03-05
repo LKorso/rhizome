@@ -6,5 +6,12 @@ import org.springframework.stereotype.Repository;
 import com.rhizome.domain.User;
 
 @Repository
-public interface UserRepository extends ElasticsearchCrudRepository<User, String> {
+public interface UserRepository extends ElasticsearchCrudRepository<User, Integer> {
+
+    User findUserByEmail(String email);
+
+    default boolean existsByEmail(String email) {
+        return findUserByEmail(email) != null;
+    }
+
 }

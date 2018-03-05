@@ -10,34 +10,34 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.rhizome.services.api.dto.UserData;
 import com.rhizome.services.implementation.UserService;
 import com.rhizome.web.dto.UserRegistrationDto;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @GetMapping("/current")
+    public ResponseEntity currentUserProfile(Principal principal) {
+        return ResponseEntity.ok(userService.findByEmail(principal.getName()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity userProfile(@PathVariable Integer id) {
+        return userService.find(id)
+                .map(v -> new ResponseEntity(v, OK))
+                .orElse(new ResponseEntity(NOT_FOUND));
+    }
+
     @PostMapping
     public void registerNewUser(@Valid UserRegistrationDto userDto) {
         userService.registerNewUser(userDto);
-    }
-
-    @GetMapping
-    public ResponseEntity userProfile(Principal principal) {
-        return userService.find(principal.getName())
-                .map(v -> new ResponseEntity(v, OK))
-                .orElse(new ResponseEntity(NOT_FOUND));
     }
 
     @PutMapping

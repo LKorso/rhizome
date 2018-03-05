@@ -14,6 +14,8 @@ import java.util.List;
 public class User {
 
     @Id
+    private Integer id;
+
     private String email;
 
     private String firstName;
@@ -22,12 +24,15 @@ public class User {
 
     private String password;
 
+    private Gender gender;
+
     private List<String> roles = Collections.singletonList("USER");
 
     public User() {
     }
 
-    public User(String email, String firstName, String lastName, String password) {
+    public User(Integer id, String email, String firstName, String lastName, String password) {
+        this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

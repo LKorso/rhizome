@@ -1,7 +1,7 @@
 var context;
 $("document").ready(function () {
     $.ajax({
-        url: '/user',
+        url: '/users/current',
         type: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -15,6 +15,7 @@ function initialize(response) {
     $("#f-name").text(valueOrDefault(response.firstName, 'FirstName is not set'));
     $("#l-name").text(valueOrDefault(response.lastName, 'LastName is not set'));
     $("#change-profile").click(openChangeProfilePage);
+    $("#find-friends").click(openUsersPage);
 }
 
 function openChangeProfilePage() {
@@ -29,7 +30,7 @@ function initChangeDataPage() {
 
 function updateProfileData() {
     $.ajax({
-        url: '/user',
+        url: '/users',
         type: 'PUT',
         dataType: 'json',
         data: {
@@ -42,6 +43,23 @@ function updateProfileData() {
 
 function toUserProfile() {
     window.location = "../html/userProfile.html";
+}
+
+function openUsersPage() {
+    $(".container-fluid").load("../html/users.html", initUsersPage);
+}
+
+function initUsersPage() {
+    $.ajax({
+        url: '/users',
+        type: 'GET',
+        dataType: 'json',
+        success: initializeUsersData
+    })
+}
+
+function initializeUsersData(response) {
+    console.log(response);
 }
 
 function valueOrDefault(value, defaultValue) {

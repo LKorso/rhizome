@@ -8,7 +8,7 @@ function onClick() {
 }
 
 function register() {
-    $.post("/user", createRegistrationDto()).done(function () {
+    $.post("/users", createRegistrationDto()).done(function () {
         window.location = "../";
     }).fail(function (response) {
         if(response.status === 400) {
