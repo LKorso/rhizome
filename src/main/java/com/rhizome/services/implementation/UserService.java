@@ -8,6 +8,8 @@ import com.rhizome.services.mappers.UserDataToUserMapper;
 import com.rhizome.web.dto.Credentials;
 import com.rhizome.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public class UserService implements RegistrationService {
         return userRepository.save(user);
     }
 
-    public Optional<UserData> find(Integer id) {
+    public Optional<UserData> find(String id) {
         User user = userRepository.findOne(id);
         if (user == null) {
             return Optional.empty();
@@ -80,6 +82,11 @@ public class UserService implements RegistrationService {
         user.setLastName(userData.getLastName());
         userRepository.save(user);
     }
+
+    public List<UserData> getUsers(Pageable pageable) {
+        return userDataToUserMapper.toUsersData(userRepository.findAll(pageable).getContent());
+    }
+
 
     private <T> List<T> toList(final Iterable<T> iterable) {
         return StreamSupport.stream(iterable.spliterator(), false)

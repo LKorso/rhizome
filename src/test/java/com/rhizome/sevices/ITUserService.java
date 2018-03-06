@@ -1,9 +1,14 @@
 package com.rhizome.sevices;
 
-import com.rhizome.configuration.EmbeddedElasticsearchConfiguration;
-import com.rhizome.domain.User;
-import com.rhizome.services.api.dto.UserData;
-import com.rhizome.services.implementation.UserService;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,11 +19,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import com.rhizome.configuration.EmbeddedElasticsearchConfiguration;
+import com.rhizome.domain.User;
+import com.rhizome.services.implementation.UserService;
 
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
@@ -51,48 +54,47 @@ public class ITUserService {
         assertAll(
                 () -> assertEquals(actual.getFirstName(), newUser.getFirstName()),
                 () -> assertEquals(actual.getLastName(), newUser.getLastName()),
-                () -> assertEquals(actual.getEmail(), newUser.getEmail())
-        );
+                () -> assertEquals(actual.getEmail(), newUser.getEmail()));
     }
 
     @Test
-    void userFound() {
+    void userFoundByEmail() {
         // given
         String userEmail = "user@email.com";
         User user = createUser();
         user.setEmail(userEmail);
+        testInstance.save(user);
 
         // when
-        UserData actual = testInstance.find(userEmail).get();
+        User actual = testInstance.findByEmail(userEmail);
 
         // then
         assertAll(
                 () -> assertEquals(actual.getFirstName(), user.getFirstName()),
-                () -> assertEquals(actual.getLastName(), user.getLastName())
-        );
+                () -> assertEquals(actual.getLastName(), user.getLastName()));
     }
 
     @Test
     void userDeleted() {
         // given
-        String userId = "USERID";
         User user = createUser();
+        int userId = user.getId();
         User savedUser = testInstance.save(user);
 
         // when
         testInstance.delete(user);
 
         // then
-        assertNull(testInstance.find(userId));
+        assertFalse(testInstance.find(userId).isPresent());
     }
 
     @Test
     void allUsersWereFound() {
         // given
         User userOne = createUser();
-        userOne.setEmail("emailOne");
+        userOne.setId(11);
         User userTwo = createUser();
-        userTwo.setEmail("emailTwo");
+        userOne.setId(12);
         testInstance.save(userOne);
         testInstance.save(userTwo);
 
@@ -104,8 +106,7 @@ public class ITUserService {
     }
 
     private User createUser() {
-        User user = new User("mail@gamil.com", "FirstName", "LastName", "password");
-        return user;
+        return new User(10, "mail@gamil.com", "FirstName", "LastName", "password");
     }
 
 }

@@ -18,8 +18,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http
                 .addFilterBefore(new AuthorizationFilter(), CsrfFilter.class)
                 .authorizeRequests()
-                    .antMatchers("/", "/html/registration.html", "/js/**", "/css/**", "/webjars/**").permitAll()
-                    .antMatchers(HttpMethod.POST, "/user").permitAll()
+                .antMatchers("/", "/html/registration.html", "/js/**", "/css/**", "/webjars/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/user").permitAll()
                 .anyRequest().authenticated();
     }
 

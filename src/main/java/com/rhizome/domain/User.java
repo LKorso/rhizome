@@ -14,7 +14,7 @@ import java.util.List;
 public class User {
 
     @Id
-    private Integer id;
+    private String id;
 
     private String email;
 
@@ -31,7 +31,7 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String email, String firstName, String lastName, String password) {
+    public User(String id, String email, String firstName, String lastName, String password) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
