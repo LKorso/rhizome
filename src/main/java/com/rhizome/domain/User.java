@@ -1,12 +1,12 @@
 package com.rhizome.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import java.util.Collections;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Data
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class User {
 
     private Gender gender;
 
-    private List<String> roles = Collections.singletonList("USER");
+    private List<String> roles;
 
     public User() {
     }
@@ -38,4 +38,5 @@ public class User {
         this.lastName = lastName;
         this.password = password;
     }
+
 }

@@ -8,20 +8,31 @@ function onClick() {
 }
 
 function register() {
-    $.post("/users", createRegistrationDto()).done(function () {
-        window.location = "../";
-    }).fail(function (response) {
-        if(response.status === 400) {
-            $("#confirmPassword").val('');
-            showErrors(response.responseJSON.errors);
-        }
+    $.ajax({
+        url: '/users',
+        type: 'POST',
+        headers: {
+          "content-type": 'application/json'
+        },
+        data: prepareUserData(),
+        success: function () {
+            window.location = "../";
+        },
+        error: onError
     });
 }
 
-function createRegistrationDto() {
-    return {
+function onError(response) {
+    if(response.status === 400) {
+        $("#confirmPassword").val('');
+        showErrors(response.responseJSON.errors);
+    }
+}
+
+function prepareUserData() {
+    return JSON.stringify({
         "email"     : $("#email").val(),
         "password"  : $("#password").val(),
-        "confirmationPassword" : $("#confirmPassword").val()
-    }
+        "roles": ["USER"]
+    });
 }

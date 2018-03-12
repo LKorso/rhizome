@@ -51,7 +51,7 @@ function openUsersPage() {
 
 function initUsersPage() {
     $.ajax({
-        url: '/users',
+        url: '/users/0/10',
         type: 'GET',
         dataType: 'json',
         success: initializeUsersData
@@ -59,7 +59,9 @@ function initUsersPage() {
 }
 
 function initializeUsersData(response) {
-    console.log(response);
+    response.forEach(function (value) {
+        $(".users").append($("<li></li>")).text(value.firstName);
+    })
 }
 
 function valueOrDefault(value, defaultValue) {
