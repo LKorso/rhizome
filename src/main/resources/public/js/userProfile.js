@@ -30,19 +30,22 @@ function initChangeDataPage() {
 
 function updateProfileData() {
     $.ajax({
-        url: '/users',
-        type: 'PUT',
+        url: context._links.update.href,
+        type: 'PATCH',
+        headers: {
+            "content-type": 'application/json'
+        },
         dataType: 'json',
-        data: {
+        data: JSON.stringify({
             "firstName": $("#firstName").val(),
             "lastName": $("#lastName").val()
-        },
+        }),
         success: toUserProfile
     })
 }
 
 function toUserProfile() {
-    window.location = "../html/userProfile.html";
+    window.location = "../html/userProfile.html?id=" + parseUri().id;
 }
 
 function openUsersPage() {
