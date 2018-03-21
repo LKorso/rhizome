@@ -88,6 +88,10 @@ public class UserService implements RegistrationService {
     }
 
 
+    public User getByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
     private <T> List<T> toList(final Iterable<T> iterable) {
         return StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());

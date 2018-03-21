@@ -1,7 +1,7 @@
 var context;
 $("document").ready(function () {
     $.ajax({
-        url: '/users/current',
+        url: '/users/' + parseUri().id,
         type: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -66,4 +66,16 @@ function initializeUsersData(response) {
 
 function valueOrDefault(value, defaultValue) {
     return value === null || value === undefined ? defaultValue : value;
+}
+
+function parseUri() {
+    var result = {};
+    if ("" !== window.location.search) {
+        var valuePairs = window.location.search.substr(1).split("&"), i;
+        for (i in valuePairs) {
+            i = valuePairs[i].split("=");
+            result[decodeURIComponent(i[0])] = decodeURIComponent(i[1]);
+        }
+    }
+    return result;
 }

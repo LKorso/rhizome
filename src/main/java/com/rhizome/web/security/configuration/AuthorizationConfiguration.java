@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import com.rhizome.web.security.CustomTokenEnhancer;
 import com.rhizome.web.security.ElasticApprovalStore;
 import com.rhizome.web.security.ElasticClientsDetailsService;
 
@@ -42,6 +43,9 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomTokenEnhancer customTokenEnhancer;
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -69,12 +73,11 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         KeyStoreKeyFactory keyStoreKeyFactory =
                 new KeyStoreKeyFactory(
                         new ClassPathResource("mykeys.jks"), "mypass".toCharArray());
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("mykeys"));
-        return converter;
+        customTokenEnhancer.setKeyPair(keyStoreKeyFactory.getKeyPair("mykeys"));
+        return customTokenEnhancer;
     }
 
     @Bean

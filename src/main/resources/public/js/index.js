@@ -41,7 +41,7 @@ function createLoginHeader() {
 
 function toUserProfile(response) {
     $.cookie("access_token", response.access_token);
-    window.location = "../html/userProfile.html";
+    window.location = "../html/userProfile.html?id=" + response.id;
 }
 
 function handleLogInErrors(response) {
