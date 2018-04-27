@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
@@ -78,8 +77,7 @@ public class ITUserService {
     void userDeleted() {
         // given
         User user = createUser();
-        int userId = user.getId();
-        User savedUser = testInstance.save(user);
+        String userId = user.getId();
 
         // when
         testInstance.delete(user);
@@ -92,9 +90,9 @@ public class ITUserService {
     void allUsersWereFound() {
         // given
         User userOne = createUser();
-        userOne.setId(11);
+        userOne.setId("11");
         User userTwo = createUser();
-        userOne.setId(12);
+        userOne.setId("12");
         testInstance.save(userOne);
         testInstance.save(userTwo);
 
@@ -106,7 +104,7 @@ public class ITUserService {
     }
 
     private User createUser() {
-        return new User(10, "mail@gamil.com", "FirstName", "LastName", "password");
+        return new User("10", "mail@gamil.com", "FirstName", "LastName", "password");
     }
 
 }

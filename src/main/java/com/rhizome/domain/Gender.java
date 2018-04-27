@@ -20,7 +20,7 @@ public enum Gender {
         return Arrays.stream(values())
                 .filter(v -> v.getValue().equalsIgnoreCase(value))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No geneder was defined for value: " + value));
+                .orElseThrow(() -> new IllegalArgumentException("No gender was defined for value: " + value));
     }
 
 }
