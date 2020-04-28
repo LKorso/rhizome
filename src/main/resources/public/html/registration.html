@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" href="../webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/errors.css">
+</head>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="form-group email">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="user@email.com">
+    </div>
+    <div class="fewFieldsArea">
+        <div class="form-group password">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="********">
+        </div>
+        <div class="form-group confirmationPassword">
+            <label for="confirmPassword">Confirm password:</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="********">
+        </div>
+    </div>
+    <button id="register" class="btn btn-primary" style="width: 20rem;">REGISTER</button>
+</div>
+<script type="text/javascript" src="../webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../js/validation.js"></script>
+<script type="text/javascript" src="../js/registration.js"></script>
+</body>
+
+</html>

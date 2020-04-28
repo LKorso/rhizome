@@ -1,0 +1,16 @@
+{
+  "passwords-do-not-match": [
+    "password",
+    "confirmationPassword"
+  ],
+  "email-not-valid": [
+    "email"
+  ],
+  "email-not-unique": [
+    "email"
+  ],
+  "not-authenticated" : [
+    "email",
+    "password"
+  ]
+}

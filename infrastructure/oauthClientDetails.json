@@ -1,0 +1,2 @@
+{"index":{"_index":"oauth_client_details","_id":"client-app"}}
+{"resourceIds":null,"clientSecret":"$2a$04$vgS6IYw.ab5duxWkCm.LkOXJue9.F5HKR877Y9vhLj9ia7eRTlM2O","scope":["read","write"],"authorizedGrantTypes":["authorization_code","password"],"registeredRedirectUri":"http://localhost:8080/","authorities":["USER"],"accessTokenValiditySeconds":3000,"refreshTokenValiditySeconds":3000000,"autoApprove":false,"additionalInformation":null}
